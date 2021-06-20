@@ -23,7 +23,10 @@ def login_view(request):
             # user login
             user = form.get_user()        # gets user
             login(request, user)           # auto log in
-            return redirect('articles:list')
+            if 'next' in request.POST:     #redirects in this case to create page whuch requires login
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('articles:list')
     elif request.method == 'GET':
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form':form})

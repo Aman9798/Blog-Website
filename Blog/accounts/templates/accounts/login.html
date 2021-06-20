@@ -5,6 +5,9 @@
     <form class="login-form" action="/accounts/login/" method='POST'>
         {% csrf_token %}
         {{ form }}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">    <!-- this information will be send as post request when we login in requirement for create page -->
+        {% endif %}
         <input type="submit" value="Login">
     </form>
 {% endblock %}
